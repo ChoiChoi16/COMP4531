@@ -3,28 +3,12 @@ from scipy import signal
 import wave
 import matplotlib.pyplot as plt
 import time
-import tkinter as tk
 
 fell = False
-
-# input target user's name
-print("")
-username = input("How do you call your Grandma or Grandpa? ")
-'''window = tk.Tk()
-ask_input_name = tk.Label(text="How do you call your Grandpa or Grandma?")
-ask_input_name.pack()
-name_input = tk.Entry()
-name_input.pack()
-button = tk.Button(text="OK")
-button.pack()
-window.mainloop()
-username = name_input.get()'''
-time.sleep(4)
-
+filename = input("what is the filename of the wav audio?")
+filename = filename + '.wav'
 # read audio file recorded by Raspberry pi
-print("")
-print(username, "seems to have fell down in the toilet. Countdown started.")
-file = wave.open('FallFinal.wav', 'rb')
+file = wave.open(filename, 'rb')
 # get sampling frequency
 sf = file.getframerate()
 # get audio data total length
@@ -106,7 +90,7 @@ plt.show()'''
 time.sleep(4)
 print("")
 if (fell == True):
-    print(username, "has fell down! Calling 999...")
+    print("user has fell down! Calling 999...")
 else:
-    print(username, "is fine now. Relax...")
+    print("user is fine.")
 input()
