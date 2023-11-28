@@ -4,7 +4,7 @@ import wave
 import matplotlib.pyplot as plt
 
 # read audio file recorded by Raspberry pi
-file = wave.open('PhaseDemo.wav', 'rb')
+file = wave.open('FallFinal.wav', 'rb')
 # get sampling frequency
 sf = file.getframerate()
 # get audio data total length
