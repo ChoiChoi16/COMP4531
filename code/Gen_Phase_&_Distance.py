@@ -34,7 +34,7 @@ audio_data_raw = file.readframes(n_length)
 # transfer to python list
 audio_data_raw = list(audio_data_raw)
 # transfer to numpy array
-audio_data_raw = np.asarray(audio_data_raw, np.int8)
+audio_data_raw = np.array(audio_data_raw).astype(np.int8)
 # set the data type to int16
 audio_data_raw.dtype = 'int16'
 # calculate audio length in second
