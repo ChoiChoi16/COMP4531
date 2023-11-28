@@ -87,7 +87,6 @@ plt.xlabel('time/s')
 plt.ylabel('distance/m')
 plt.show()'''
 # alert
-time.sleep(4)
 print("")
 if (fell == True):
     print("user has fell down! Calling 999...")
