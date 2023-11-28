@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # sampling frequency
 sf = 48000
 # signal time
-total_time = 5
+total_time = 60
 # signal frequency
 freq = 18000
 
