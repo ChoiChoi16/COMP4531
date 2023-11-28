@@ -23,7 +23,7 @@ audio_data_raw_total_time = n_length/sf
 file.close()
 
 # cut the middle part of the audio data
-time_offset = 0
+time_offset = 2
 total_time = np.int32(np.ceil(audio_data_raw_total_time - time_offset - 2))
 total_point = total_time * sf
 time_offset_point = time_offset * sf
@@ -59,10 +59,13 @@ plt.show()
 phase = np.unwrap(phase*2)/2
 
 # fall detection
+fallen_duration = 0
 for i in phase:
     if (i < -60):
-        print("fall")
-        break
+        print("fall for", fallen_duration, "ms")
+        fallen_duration += 1
+        if (fallen_duration > 120):
+            break
 
 # plot the unwraped phase
 plt.plot(t, phase)
