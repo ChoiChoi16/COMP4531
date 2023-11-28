@@ -2,8 +2,28 @@ import numpy as np
 from scipy import signal
 import wave
 import matplotlib.pyplot as plt
+import time
+import tkinter as tk
+
+fell = False
+
+# input target user's name
+print("")
+username = input("How do you call your Grandma or Grandpa? ")
+'''window = tk.Tk()
+ask_input_name = tk.Label(text="How do you call your Grandpa or Grandma?")
+ask_input_name.pack()
+name_input = tk.Entry()
+name_input.pack()
+button = tk.Button(text="OK")
+button.pack()
+window.mainloop()
+username = name_input.get()'''
+time.sleep(4)
 
 # read audio file recorded by Raspberry pi
+print("")
+print(username, "seems to have fell down in the toilet. Countdown started.")
 file = wave.open('FallFinal.wav', 'rb')
 # get sampling frequency
 sf = file.getframerate()
@@ -47,35 +67,46 @@ signalQ = signalQ - np.mean(signalQ)
 # calculate the phase angle
 phase = np.arctan(signalQ/signalI)
 # plot the IQ figure
-plt.plot(signalI, signalQ)
+'''plt.plot(signalI, signalQ)
 plt.xlabel('I')
 plt.ylabel('Q')
-plt.show()
+plt.show()'''
 # plot the original phase
-plt.plot(t, phase)
+'''plt.plot(t, phase)
 plt.xlabel('t/s')
-plt.show()
+plt.show()'''
 # unwrap the phase
 phase = np.unwrap(phase*2)/2
+# plot the unwraped phase
+'''plt.plot(t, phase)
+plt.show()'''
 
 # fall detection
-fallen_duration = 0
+fell_duration = 0
 for i in phase:
-    if (i < -60):
-        print("fall for", fallen_duration, "ms")
-        fallen_duration += 1
-        if (fallen_duration > 120):
-            break
+    if (i >= 100):
+        fell_duration += 1
+    else:
+        fell_duration = 0
+        continue
+    if (fell_duration >= 120000):
+        fell = True
+        break
 
-# plot the unwraped phase
-plt.plot(t, phase)
-plt.show()
 # calculate the wave length
 wave_length = 342/freq
 # calculate the distance
 distance = phase/2/np.pi*wave_length/2
 # plot the distance
-plt.plot(t, distance)
+'''plt.plot(t, distance)
 plt.xlabel('time/s')
 plt.ylabel('distance/m')
-plt.show()
+plt.show()'''
+# alert
+time.sleep(4)
+print("")
+if (fell == True):
+    print(username, "has fell down! Calling 999...")
+else:
+    print(username, "is fine now. Relax...")
+input()
