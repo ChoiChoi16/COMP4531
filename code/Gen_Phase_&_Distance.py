@@ -72,20 +72,35 @@ phase = np.unwrap(phase*2)/2
 plt.show()'''
 
 
-# fall detection
-fall_duration = np.sum(phase >= 100)
-fell = fall_duration >= 120000
-
 # calculate the wave length and distance
 wave_length = 342/freq
 distance = phase/2/np.pi*wave_length/2
 
+# Calculate acceleration by taking the second derivative of distance
+acceleration = np.gradient(np.gradient(distance, t), t)
+
+
+# fall detection
+#fall_duration = np.sum(phase >= 100)
+#fell = fall_duration >= 120000
+#fall_duration = np.sum(acceleration >= 1000)
+fell = max(acceleration) >= 20000
+#print(fall_duration)
+#print(acceleration)
+#print(max(acceleration))
+
 
 # plot the distance
-'''plt.plot(t, distance)
-plt.xlabel('time/s')
-plt.ylabel('distance/m')
-plt.show()'''
+#plt.plot(t, distance)
+#plt.xlabel('time/s')
+#plt.ylabel('distance/m')
+#plt.show()
+
+# Plot the acceleration
+#plt.plot(t, acceleration)
+#plt.xlabel('Time (s)')
+#plt.ylabel('Acceleration (m/s^2)')
+#plt.show()
 
 
 # alert
@@ -94,4 +109,3 @@ if fell:
     print("user has fell down! Calling 999...")
 else:
     print("user is fine.")
-input()
